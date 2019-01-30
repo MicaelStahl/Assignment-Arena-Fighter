@@ -7,7 +7,9 @@ namespace Assignment_Arena_Fighter
     {
         static void Main(string[] args)
         {
+
             CreateCharacter();
+            CreateAiCharacter();
         }
         static Character CreateCharacter()
         {
@@ -31,6 +33,14 @@ namespace Assignment_Arena_Fighter
             int number = int.Parse(Console.ReadLine());
 
             return number;
+        }
+
+        static Round CreateAiCharacter()
+        {
+            int AiStrength = 0;
+            int AiDamage = 0;
+            int AiHealth = 0;
+            return new Round(AiStrength, AiDamage, AiHealth);
         }
     }
 }
