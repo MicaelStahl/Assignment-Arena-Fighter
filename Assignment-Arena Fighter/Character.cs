@@ -15,7 +15,7 @@ namespace Assignment_Arena_Fighter
         public int CharDamage;
         public int CharHealth;
         Round UserChar = new Round();
-
+        
         public Character(int CharStrength, int CharDamage, int CharHealth)
         {
             this.CharStrength = CharStrength;
