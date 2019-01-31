@@ -37,17 +37,18 @@ namespace Assignment_Arena_Fighter
 
             TestingGrounds();
             Character opponent = Battle.CreateOpponent();
+
         }
-        public Battle CreateOpponent()
-        {
-            Battle opponent = CreateOpponent();
-            return new Battle();
-        }
+        //public Battle CreateOpponent()
+        //{
+        //    Battle opponent = CreateOpponent();
+        //    Character player = CreatePlayer();
+        //    return new Battle(player, opponent);
+        //}
         static void TestingGrounds()
         {
             //bool stayAlive = true;
 
-            Character player = CreatePlayer();
 
             //Console.Write(
             //    "\nWhat would you like to do?\n" +
@@ -57,7 +58,7 @@ namespace Assignment_Arena_Fighter
             char choice = Console.ReadKey(true).KeyChar;
             
 
-            player.DisplayPlayer();
+            //player.DisplayPlayer();
         }
         static Character CreatePlayer()
         {

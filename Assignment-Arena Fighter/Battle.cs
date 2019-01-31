@@ -8,8 +8,10 @@ namespace Assignment_Arena_Fighter
     class Battle
     {
         public static InfoGenerator infoGen = new InfoGenerator(DateTime.Now.Millisecond);
+        private Battle opponent;
+        private Character player;
 
-        public Battle()
+        public Battle(Character player)
         {
             Character opponent = CreateOpponent();
             opponent.DisplayOpponent();
@@ -22,6 +24,12 @@ namespace Assignment_Arena_Fighter
         public Battle(Character player, Character opponent)
         {
             BattleSequence(player, opponent);
+        }
+
+        public Battle(Character player, Battle opponent)
+        {
+            this.player = player;
+            this.opponent = opponent;
         }
 
         public void BattleSequence(Character player, Character opponent)

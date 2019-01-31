@@ -4,6 +4,7 @@ using System.Text;
 using Lexicon.CSharp.InfoGenerator;
 
 
+
 namespace Assignment_Arena_Fighter
 {
     class Character
