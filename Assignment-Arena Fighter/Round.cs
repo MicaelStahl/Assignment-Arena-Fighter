@@ -7,32 +7,19 @@ namespace Assignment_Arena_Fighter
 {
     class Round
     {
-        static InfoGenerator infoGen = new InfoGenerator(DateTime.Now.Millisecond);
+        static InfoGenerator InfoGen = new InfoGenerator(DateTime.Now.Millisecond);
 
-        public Round() { }
+        public Character Player { get; set; }
+        public Battle Ai { get; set; }
 
-        //public Battle DiceRoll(int diceRoll)
-        //{
-        //    this.diceRoll = diceRoll;
-        //    diceRoll = infoGen.Next(1, 7);
 
-        //    return new Battle(diceRoll);
 
-        //}
+        public static void ScoreScreen(Character player, Battle Ai)
+        {
 
-        //public Character(string AiName, int AiStrength, int AiDamage, int AiHealth)
-        //{
+            List<Battle> ScoreScreen = new List<Battle>();
+            ScoreScreen.Add(Ai);
 
-        //    AiStrength = infoGen.Next(1, 9);
-        //    AiDamage = infoGen.Next(1, 7);
-        //    AiHealth = infoGen.Next(1, 9);
-        //    Console.WriteLine("AiName = " + AiName);
-        //    Console.WriteLine("AiStrength = " + AiStrength);
-        //    Console.WriteLine("AiDamage = " + AiDamage);
-        //    Console.WriteLine("AiHealth = " + AiHealth);
-
-        //    return new Character(AiStrength, AiDamage, AiHealth);
-
-        //}
+        }
     }
 }

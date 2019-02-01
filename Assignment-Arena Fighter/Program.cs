@@ -5,16 +5,15 @@ namespace Assignment_Arena_Fighter
 {
     class Program
     {
-        public static InfoGenerator infoGen = new InfoGenerator(DateTime.Now.Millisecond);
-
+        public static InfoGenerator InfoGen = new InfoGenerator(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
 
             //bool stayAlive = true;
-            //Console.WriteLine(
-            //    "--- Welcome to Assignment 3 ---\n" +
-            //    "\tArena Fighter\n"
-            //    );
+            DisplayMessage(
+                "--- Welcome to Assignment 3 ---\n" +
+                "\tArena Fighter\n", ConsoleColor.DarkMagenta
+                );
             /**while (stayAlive)
             {
 
@@ -36,35 +35,37 @@ namespace Assignment_Arena_Fighter
             }*/
 
             TestingGrounds();
-            Character opponent = Battle.CreateOpponent();
+
 
         }
-        //public Battle CreateOpponent()
-        //{
-        //    Battle opponent = CreateOpponent();
-        //    Character player = CreatePlayer();
-        //    return new Battle(player, opponent);
-        //}
+
         static void TestingGrounds()
         {
-            //bool stayAlive = true;
 
+            Battle Ai = CreateAi();
 
-            //Console.Write(
-            //    "\nWhat would you like to do?\n" +
-            //    "F - Fight an opponent\n" +
-            //    "R - Run away like a coward\n"
-            //    );
-            char choice = Console.ReadKey(true).KeyChar;
-            
+            Character player = CreatePlayer();
 
-            //player.DisplayPlayer();
+            ReturnFighters(player, Ai);
+
         }
-        static Character CreatePlayer()
+
+        public static Battle CreateAi()
+        {
+            return new Battle(InfoGen.NextFirstName(Gender.Any), InfoGen.Next(1, 9), InfoGen.Next(1, 9), InfoGen.Next(1, 9));
+        }
+
+        public static Character CreatePlayer()
         {
             string CharName = AskUserForThings("Character name");
 
-            return new Character(CharName, infoGen.Next(1,9), infoGen.Next(1, 6), infoGen.Next(2, 9)); //Sends name, strength, damage and health to a constructor in Character class
+            return new Character(CharName, InfoGen.Next(1, 9), InfoGen.Next(1, 6), InfoGen.Next(2, 9)); //Sends name, strength, damage and health to a constructor in Character class
+        }
+
+        public static Battle ReturnFighters(Character player, Battle Ai)
+        {
+            return new Battle(player, Ai);
+
         }
 
         static string AskUserForThings(string x)
@@ -74,14 +75,13 @@ namespace Assignment_Arena_Fighter
 
             return CharName;
         }
-
-        //static int AskUserForNumberThings(string x)
-        //{
-        //    Console.Write("Please write your " + x + " value:");
-        //    int number = int.Parse(Console.ReadLine());
-
-        //    return number;
-        //}
-
+        public static void DisplayMessage(string message, ConsoleColor color = ConsoleColor.White)
+        {
+            // This simple method works a bit like a Console.WriteLine and also saves unnecessary lines of code
+            // for Console.ForeGroundColor, Console.ResetColor etc.
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
     }
 }
