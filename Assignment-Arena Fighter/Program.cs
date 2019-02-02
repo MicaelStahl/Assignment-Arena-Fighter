@@ -62,9 +62,9 @@ namespace Assignment_Arena_Fighter
             return new Character(CharName, InfoGen.Next(1, 9), InfoGen.Next(1, 6), InfoGen.Next(2, 9)); //Sends name, strength, damage and health to a constructor in Character class
         }
 
-        public static Battle ReturnFighters(Character player, Battle Ai)
+        public static Round ReturnFighters(Character player, Battle Ai)
         {
-            return new Battle(player, Ai);
+            return new Round(player, Ai);
 
         }
 

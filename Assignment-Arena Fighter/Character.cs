@@ -13,9 +13,9 @@ namespace Assignment_Arena_Fighter
         public Character() { }
 
         public string playerName { get; set; }
-        public int playerStrength { get; set; }
-        public int playerDamage { get; set; }
-        public int playerHealth { get; set; }
+        public int playerStrength;
+        public int playerDamage;
+        public int playerHealth;
 
         public Character(string playerName, int playerStrength, int playerDamage, int playerHealth)
         {
@@ -23,9 +23,6 @@ namespace Assignment_Arena_Fighter
             this.playerStrength = playerStrength;
             this.playerDamage = playerDamage;
             this.playerHealth = playerHealth;
-
-
-
         }
 
         public void DisplayPlayer()
@@ -36,7 +33,6 @@ namespace Assignment_Arena_Fighter
                 "Strength: " + playerStrength + "\n" +
                 "Damage: " + playerDamage + "\n" +
                 "Health: " + playerHealth + "\n");
-
         }
     }
 }
