@@ -11,14 +11,22 @@ namespace Assignment_Arena_Fighter
 
         public Character Player { get; set; }
         public Battle Ai { get; set; }
+        public List<string> Battles { get; set; }
+        public List<int> Score { get; set; }
 
-
-
-        public static void ScoreScreen(Character player, Battle Ai)
+        public static void FinalStatistics(Character player, Battle Ai, List<string> Battles, List<int> Score)
         {
 
-            List<Battle> ScoreScreen = new List<Battle>();
-            ScoreScreen.Add(Ai);
+            Console.Clear();
+            Console.ReadKey();
+            
+            foreach (string value in Battles)
+            {
+                string line = value;
+                Program.DisplayMessage(line + ".");
+
+            }
+            Console.ReadKey();
 
         }
 
@@ -34,69 +42,58 @@ namespace Assignment_Arena_Fighter
 
             BattleSequence(player, Ai);
         }
-
+        /// <summary>
+        /// Performs the main Battle sequence and sends it over to the Battle class to verify that both chars are alive.
+        /// </summary>
         public static void BattleSequence(Character player, Battle Ai)
         {
-            bool stayAlive = true;
-            int points = 0;
 
-            List<int> Score = new List<int>();
+            Console.ReadKey();
 
-            while (stayAlive)
+            int playerDiceRoll = InfoGen.Next(1, 7);
+            int AiDiceRoll = InfoGen.Next(1, 7);
+
+            int playerStrength = player.playerStrength + playerDiceRoll;
+            int AiStrength = Ai.AiStrength + AiDiceRoll;
+
+            Program.DisplayMessage("---------------");
+            Program.DisplayMessage("Rolls: "
+                + player.PlayerName + " " + playerStrength + " (" + player.playerStrength + "+" + playerDiceRoll + ")" +
+                " vs "
+                + Ai.AiName + " " + AiStrength + " (" + Ai.AiStrength + "+" + AiDiceRoll + ")");
+
+            if (playerStrength > AiStrength)
             {
-                int playerDiceRoll = InfoGen.Next(1, 7);
-                int opponentDiceRoll = InfoGen.Next(1, 7);
 
-                int playerStrength = player.playerStrength + playerDiceRoll;
-                int AiStrength = Ai.AiStrength + opponentDiceRoll;
+                Program.DisplayMessage("I punched the opponent for " + player.playerDamage + "!", ConsoleColor.Green);
 
-                Program.DisplayMessage("---------------");
-                Program.DisplayMessage("Rolls: "
-                    + player.playerName + " " + playerStrength + " (" + player.playerStrength + "+" + playerDiceRoll + ")" +
-                    " vs "
-                    + Ai.AiName + " " + AiStrength + " (" + Ai.AiStrength + "+" + opponentDiceRoll + ")");
+                Ai.AiHealth -= player.playerDamage;
 
-                if (playerStrength > AiStrength)
-                {
-                    Program.DisplayMessage("I punched the opponent for " + player.playerDamage + "!", ConsoleColor.Green);
+                Program.DisplayMessage("Remaining Health: " + player.PlayerName + " (" + player.playerHealth + "), " + Ai.AiName + " (" + Ai.AiHealth + ")");
 
-                    Ai.AiHealth -= player.playerDamage;
-                    Program.DisplayMessage(Ai.AiHealth + " health remaining ");
+                Ai.IsXAlive(player, Ai);
 
-                    if (Ai.AiHealth <= 0)
-                    {
-                        points = points + 5;
-                        Score.Add(points);
+                Console.ReadKey();
+            }
+            else if (playerStrength < AiStrength)
+            {
+                Program.DisplayMessage("Opponent punched me for " + Ai.AiDamage + "!", ConsoleColor.Red);
 
-                        Program.DisplayMessage("Opponent has 0 health remaining, which results in a win for you!");
+                player.playerHealth -= Ai.AiDamage; // can be read as playerhealth = playerhealth - AiDamage
 
-                        Program.DisplayMessage(points + " is your current score!");
+                Program.DisplayMessage("Remaining Health: " + player.PlayerName + " (" + player.playerHealth + "), " + Ai.AiName + " (" + Ai.AiHealth + ")");
 
-                        Round.ScoreScreen(player, Ai); // ------------------------------------------
-                    }
-                    Console.ReadKey();
-                }
-                else if (playerStrength < AiStrength)
-                {
-                    Program.DisplayMessage("Opponent punched me for " + Ai.AiDamage + "!", ConsoleColor.Red);
+                Ai.IsXAlive(player, Ai);
 
-                    player.playerHealth -= Ai.AiDamage;
-                    Program.DisplayMessage(player.playerHealth + " health remaining ");
+            }
+            else
+            {
+                Console.WriteLine("The predators circles around eachother, looking for a opening.");
 
-                    if (player.playerHealth <= 0)
-                    {
-                        points = points + 2;
-                        Score.Add(points);
-                        Program.DisplayMessage("You have 0 health remaining, which means you suck!");
-                        Program.DisplayMessage(points + " is your final score!");
-                    }
-                    Console.ReadKey();
-                }
-                else
-                {
-                    Console.WriteLine("The predators circles around eachother, looking for a opening.");
-                    Console.ReadKey();
-                }
+                Program.DisplayMessage("Remaining Health: " + player.PlayerName + " (" + player.playerHealth + "), " + Ai.AiName + " (" + Ai.AiHealth + ")");
+
+                Ai.IsXAlive(player, Ai);
+
             }
         }
     }

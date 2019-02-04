@@ -12,24 +12,26 @@ namespace Assignment_Arena_Fighter
 
         public Character() { }
 
-        public string playerName { get; set; }
+        public string PlayerName { get; set; }
         public int playerStrength;
         public int playerDamage;
         public int playerHealth;
+        public List<string> Battles { get; set; }
 
         public Character(string playerName, int playerStrength, int playerDamage, int playerHealth)
         {
-            this.playerName = playerName;
+            this.PlayerName = playerName;
             this.playerStrength = playerStrength;
             this.playerDamage = playerDamage;
             this.playerHealth = playerHealth;
+            Battles = new List<string>();
         }
 
         public void DisplayPlayer()
         {
             Program.DisplayMessage(
-                "Player: \n" +
-                "Name: " + playerName + "\n" +
+                "\nPlayer: \n" +
+                "Name: " + PlayerName + "\n" +
                 "Strength: " + playerStrength + "\n" +
                 "Damage: " + playerDamage + "\n" +
                 "Health: " + playerHealth + "\n");
