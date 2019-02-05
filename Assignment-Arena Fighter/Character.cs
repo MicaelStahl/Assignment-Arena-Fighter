@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Lexicon.CSharp.InfoGenerator;
-
-
 
 namespace Assignment_Arena_Fighter
 {
@@ -16,7 +13,9 @@ namespace Assignment_Arena_Fighter
         public int playerStrength;
         public int playerDamage;
         public int playerHealth;
+        public List<int> ShopMoney { get; set; }
         public List<string> Battles { get; set; }
+        public List<int> Score { get; set; }
 
         public Character(string playerName, int playerStrength, int playerDamage, int playerHealth)
         {
@@ -25,6 +24,8 @@ namespace Assignment_Arena_Fighter
             this.playerDamage = playerDamage;
             this.playerHealth = playerHealth;
             Battles = new List<string>();
+            Score = new List<int>();
+            ShopMoney = new List<int>();
         }
 
         public void DisplayPlayer()

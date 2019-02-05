@@ -14,20 +14,25 @@ namespace Assignment_Arena_Fighter
         public List<string> Battles { get; set; }
         public List<int> Score { get; set; }
 
-        public static void FinalStatistics(Character player, Battle Ai, List<string> Battles, List<int> Score)
+        public static void FinalStatistics(Character player, Battle Ai)
         {
-
+            int pointyPoints = 0;
             Console.Clear();
-            Console.ReadKey();
-            
-            foreach (string value in Battles)
+            player.DisplayPlayer();
+
+            foreach (string value in player.Battles)
             {
                 string line = value;
-                Program.DisplayMessage(line + ".");
+                Program.DisplayMessage(line + "!");
 
             }
-            Console.ReadKey();
+                foreach (int points in player.Score)
+                {
+                    pointyPoints = pointyPoints + points;
+                }
 
+            Program.DisplayMessage("Your total score: " + pointyPoints);
+            Console.ReadKey();
         }
 
         public Round(Character player, Battle Ai)
@@ -48,7 +53,6 @@ namespace Assignment_Arena_Fighter
         public static void BattleSequence(Character player, Battle Ai)
         {
 
-            Console.ReadKey();
 
             int playerDiceRoll = InfoGen.Next(1, 7);
             int AiDiceRoll = InfoGen.Next(1, 7);
@@ -73,7 +77,6 @@ namespace Assignment_Arena_Fighter
 
                 Ai.IsXAlive(player, Ai);
 
-                Console.ReadKey();
             }
             else if (playerStrength < AiStrength)
             {
@@ -95,6 +98,7 @@ namespace Assignment_Arena_Fighter
                 Ai.IsXAlive(player, Ai);
 
             }
+            Console.ReadKey();
         }
     }
 }

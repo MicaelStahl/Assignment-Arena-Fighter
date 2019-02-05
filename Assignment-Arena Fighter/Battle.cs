@@ -9,11 +9,11 @@ namespace Assignment_Arena_Fighter
     {
         public static InfoGenerator InfoGen = new InfoGenerator(DateTime.Now.Millisecond);
 
-        public Character Player { get; set; }
-        public Battle Ai { get; set; }
+        //public Character Player { get; set; }
+        //public Battle Ai { get; set; }
 
-        public List<int> Score { get; set; }
-        public List<string> Battles { get; set; }
+        int points = 0;
+        int shopMoney = 0;
 
         public string AiName { get; set; }
         public int AiStrength { get; set; }
@@ -31,31 +31,32 @@ namespace Assignment_Arena_Fighter
 
         public void IsXAlive(Character player, Battle Ai)
         {
-            this.Battles = Battles = new List<string>();
-            this.Score = Score = new List<int>();
 
-            int points = 0;
 
             if (player.playerHealth <= 0)
             {
                 points = points + 2;
-                Score.Add(points);
+                player.Score.Add(points);
 
-                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a tuna and lost!");
-                Battles.Add(Lost);
+                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a tuna and lost");
+                player.Battles.Add(Lost);
 
-                Round.FinalStatistics(player, Ai, Battles, Score);
+                Console.ReadKey();
+                Round.FinalStatistics(player, Ai);
             }
             else if (Ai.AiHealth <= 0)
             {
-                points = points + 5;
-                Score.Add(points);
+                shopMoney = shopMoney + InfoGen.Next(2, 5);
+                player.ShopMoney.Add(shopMoney);
 
-                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a trout and won!");
-                Battles.Add(Lost);
+                points = points + 5;
+                player.Score.Add(points);
+
+                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a trout and won");
+                player.Battles.Add(Lost);
 
                 Console.ReadKey();
-                Program.TestingGrounds(player);
+                Program.Testing(player);
             }
             else
             {
