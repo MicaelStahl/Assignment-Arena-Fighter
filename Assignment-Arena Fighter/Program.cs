@@ -10,8 +10,20 @@ namespace Assignment_Arena_Fighter
 
         static void Main(string[] args)
         {
-            DisplayMessage("\n\t\t\t\t\t--- Welcome to Assignment 3 ---\n" + "\t\t\t\t\t\tArena Fighter\n", ConsoleColor.Yellow);
+            DisplayMessage("\t\t" + @"                                      ______  _         _      _                ");
+            DisplayMessage("\t\t" + @"     /\                              |  ____|(_)       | |    | |               ");
+            DisplayMessage("\t\t" + @"    /  \    _ __  ___  _ __    __ _  | |__    _   __ _ | |__  | |_  ___  _ __   ");
+            DisplayMessage("\t\t" + @"   / /\ \  | '__|/ _ \| '_ \  / _` | |  __|  | | / _` || '_ \ | __|/ _ \| '__|  ");
+            DisplayMessage("\t\t" + @"  / ____ \ | |  |  __/| | | || (_| | | |     | || (_| || | | || |_|  __/| |     ");
+            DisplayMessage("\t\t" + @" /_/    \_\|_|   \___||_| |_| \__,_|_|_|     |_| \__, ||_| |_| \__|\___||_|     ");
+            DisplayMessage("\t\t" + @"                                 |___ \           __/ |                         ");
+            DisplayMessage("\t\t" + @"                                   __) |         |___/                          ");
+            DisplayMessage("\t\t" + @"                                  |__ <                                         ");
+            DisplayMessage("\t\t" + @"                                  ___) |                                        ");
+            DisplayMessage("\t\t" + @"                                 |____/                                         ");
+
             Character player = CreatePlayer();
+
 
             Testing(player);
         }
@@ -21,37 +33,40 @@ namespace Assignment_Arena_Fighter
 
             Battle Ai = CreateAi();
 
-            //bool stayAlive = true;
+            bool stayAlive = true;
 
-            Console.Clear();
-            player.DisplayPlayer();
-
-            //while (stayAlive)
-            //{
-
-            Console.Write(
-                "What do you want to do?\n" +
-                "H - Hunt for a pray! \n" +
-                "S - Go to the shop! \n" +
-                "F - Flee like a cooooooward! \n");
-            char playerChoice = Console.ReadKey(true).KeyChar;
-            switch (playerChoice)
+            while (stayAlive)
             {
-                case 'h':
-                    ReturnFighters(player, Ai);
-                    break;
-                case 's':
-                    ArenaShop(player, shopMoney);
-                    break;
-                case 'f':
-                    Round.FinalStatistics(player, Ai);
-                    //stayAlive = false;
-                    break;
-                default:
-                    DisplayMessage("Incorrect input", ConsoleColor.Red);
-                    break;
+
+                Console.Clear();
+                player.DisplayPlayer();
+
+                Console.Write(
+                    "What do you want to do?\n" +
+                    "H - Hunt for a pray! \n" +
+                    "S - Go to the shop! \n" +
+                    "F - Flee like a cooooooward! \n");
+                char playerChoice = char.ToUpper(Console.ReadKey(true).KeyChar);
+                switch (playerChoice)
+                {
+                    case 'H':
+                        NewFighters(player, Ai);
+                        stayAlive = false;
+                        break;
+                    case 'S':
+                        ArenaShop(player, Ai, shopMoney);
+                        break;
+                    case 'F':
+                        Round.FinalStatistics(player, Ai);
+                        stayAlive = false;
+                        break;
+                    default:
+                        DisplayMessage("Incorrect input", ConsoleColor.Red);
+                        Console.ReadKey();
+
+                        break;
+                }
             }
-            //}
         }
 
         public static Battle CreateAi()
@@ -66,138 +81,165 @@ namespace Assignment_Arena_Fighter
             return new Character(playerName, InfoGen.Next(5, 15), InfoGen.Next(5, 8), InfoGen.Next(5, 15)); //Sends name, strength, damage and health to a constructor in Character class
         }
 
-        public static Round ReturnFighters(Character player, Battle Ai)
+        public static Round NewFighters(Character player, Battle Ai)
         {
             return new Round(player, Ai);
 
         }
-
+        /// <summary>
+        /// Asks the user for a character name to use in the game
+        /// </summary>
         static string AskUserForThings(string x)
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("Please write your " + x + ": ");
-            string playerName = Console.ReadLine();
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("\n\n\n\t\t\t\tPlease write your " + x + ": ");
+                    string playerName = Console.ReadLine();
 
-            return playerName;
+                    return playerName;
         }
-
-        public static void ArenaShop(Character player, int shopMoney)
+        /// <summary>
+        /// Just a humble shop that gives the player the opportunity to upgrade his/her stats
+        /// </summary>
+        public static void ArenaShop(Character player, Battle Ai, int shopMoney)
         {
-            //bool stayAlive = true;
+            bool stayAlive = true;
 
-            //int shopMoney = 0;
-            Console.Clear();
-
-
-            //while (stayAlive)
-            //{
+            shopMoney = 0;
 
             foreach (int points in player.ShopMoney)
             {
-                shopMoney = points;
+                shopMoney = shopMoney + points;
             }
-            Console.ForegroundColor = ConsoleColor.White;
 
-            player.DisplayPlayer();
-
-            DisplayMessage(
-                "Hello and welcome to my shop! Have a look at my wares! (You have: " + shopMoney + " coins!)" + "\n\n" +
-                "(S)trength - 3 coins - 'I want to train to get stronger!' *weird flex but okay...* (gives 1 Strength points)\n" +
-                "(D)amage - 2 coins - 'I demand your sharpest sword!'*Gives user a copper shortsword* (gives 1 Damage points\n" +
-                "(H)ealth - 5 coins - 'Potion Seller, I want only your strongest potions!' (gives +5 current Health points\n" +
-                "(L)augh - 1 coin - For a fun surprise!\n" +
-                "(B)ack - 0 coins - If you want to go back to the arena!\n"
-            );
-
-            char choice = char.ToUpper(Console.ReadKey(true).KeyChar);
-
-            switch (choice)
+            while (stayAlive)
             {
-                case 'S':
-                    Console.Clear();
-                    AddStrength(player, shopMoney);
-                    break;
-                case 'D':
-                    AddDamage(player, shopMoney);
-                    break;
-                case 'H':
-                    AddHealth(player, shopMoney);
-                    break;
-                case 'L':
-                    LlamaTime(player, shopMoney);
-                    break;
+                Console.Clear();
 
-                case 'B':
-                    Testing(player);
-                    break;
+                Console.ForegroundColor = ConsoleColor.White;
 
+                player.DisplayPlayer();
+
+                DisplayMessage(
+                    "Hello and welcome to my humble shop! Have a look at my wares! (You have: " + shopMoney + " coins!)" + "\n\n" +
+                    "(S)trength - 3 coins - 'I want to train to get stronger!' *weird flex but okay...* (gives 1 Strength points)\n" +
+                    "(D)amage - 2 coins - 'I demand your sharpest sword!' *Gives user a copper shortsword* (gives 1 Damage points)\n" +
+                    "(H)ealth - 5 coins - 'Potion Seller, I desire only your strongest potions!' (gives +5 current Health points)\n\n" +
+                    "(B)ack - 0 coins - If you want to go back to the arena!\n"
+                );
+                DisplayMessage("Beware brave fighter, thy your choices will significantly strengthen your opponents temporarily!\n", ConsoleColor.Yellow);
+
+                char choice = char.ToUpper(Console.ReadKey(true).KeyChar);
+
+                switch (choice)
+                {
+                    case 'S':
+                        Console.Clear();
+                        AddStrength(player, Ai, shopMoney);
+
+                        if (shopMoney >= 3)
+                        {
+                            shopMoney = shopMoney - 3;
+                        }
+                        break;
+                    case 'D':
+                        Console.Clear();
+                        AddDamage(player, Ai, shopMoney);
+
+                        if (shopMoney >= 2)
+                            shopMoney = shopMoney - 2;
+                        break;
+                    case 'H':
+                        Console.Clear();
+                        AddHealth(player, Ai, shopMoney);
+
+                        if (shopMoney >= 5)
+                            shopMoney = shopMoney - 5;
+
+                        break;
+
+                    case 'B':
+                        stayAlive = false;
+                        break;
+
+                    default:
+                        DisplayMessage("Oh, dear fighter, I'm afraid that isn't an option in this humble shop!", ConsoleColor.Red);
+                        Console.ReadKey();
+                        break;
+                }
             }
-            Console.ReadKey();
-
-            //}
-
         }
 
-        public static void AddStrength(Character player, int shopMoney)
+        public static void AddStrength(Character player, Battle Ai, int shopMoney)
         {
             if (shopMoney >= 3)
             {
-                player.playerStrength = player.playerStrength + 1;
-                shopMoney = shopMoney - 3;
-                player.ShopMoney.Add(shopMoney);
+                player.ShopMoney.Add(-3);
+                Program.DisplayMessage(
+                "\nPlayer: \n" +
+                "Name: " + player.Name + "\n" +
+                "Strength: " + player.Strength + " + 1" + "\n" +
+                "Damage: " + player.Damage + "\n" +
+                "Health: " + player.Health + "\n");
+
+                player.Strength = player.Strength + 1;
+                Ai.Strength = Ai.Strength + 3;
 
                 DisplayMessage("Thank you for your purchase!", ConsoleColor.Green);
-
-                ArenaShop(player, shopMoney);
+                Console.ReadKey();
             }
             else
             {
-                DisplayMessage("Get out of here you poor scoundrel!", ConsoleColor.Red);
-                ArenaShop(player, shopMoney);
+                DisplayMessage("Get out of here you poor scoundrel before I stab you!", ConsoleColor.Red);
+                Console.ReadKey();
             }
         }
 
-        public static void AddDamage(Character player, int shopMoney)
+        public static void AddDamage(Character player, Battle Ai, int shopMoney)
         {
             if (shopMoney >= 2)
             {
-                player.playerDamage = player.playerDamage + 1;
-                shopMoney = shopMoney - 2;
-                player.ShopMoney.Add(shopMoney);
+                Program.DisplayMessage(
+                "\nPlayer: \n" +
+                "Name: " + player.Name + "\n" +
+                "Strength: " + player.Strength + "\n" +
+                "Damage: " + player.Damage + " + 1" + "\n" +
+                "Health: " + player.Health + "\n");
+
+                player.Damage = player.Damage + 1;
+                Ai.Damage = Ai.Damage + 50;
 
                 DisplayMessage("Thank you for your purchase!", ConsoleColor.Green);
-
-                ArenaShop(player, shopMoney);
+                Console.ReadKey();
             }
             else
             {
-                DisplayMessage("Get out of here you poor scoundrel!", ConsoleColor.Red);
-                ArenaShop(player, shopMoney);
+                DisplayMessage("Get out of here you poor scoundrel before I stab you!", ConsoleColor.Red);
+                Console.ReadKey();
             }
         }
 
-        public static void AddHealth(Character player, int shopMoney)
+        public static void AddHealth(Character player, Battle Ai, int shopMoney)
         {
             if (shopMoney >= 5)
             {
-                player.playerHealth = player.playerHealth + 5;
-                shopMoney = shopMoney - 5;
-                player.ShopMoney.Add(shopMoney);
+                Program.DisplayMessage(
+                "\nPlayer: \n" +
+                "Name: " + player.Name + "\n" +
+                "Strength: " + player.Strength + "\n" +
+                "Damage: " + player.Damage + "\n" +
+                "Health: " + player.Health + " + 5" + "\n");
+
+                player.Health = player.Health + 5;
+                Ai.Health = Ai.Health + 20;
 
                 DisplayMessage("Thank you for your purchase!", ConsoleColor.Green);
-
-                ArenaShop(player, shopMoney);
+                Console.ReadKey();
             }
             else
             {
-                DisplayMessage("Get out of here you poor scoundrel!", ConsoleColor.Red);
-                ArenaShop(player, shopMoney);
+                DisplayMessage("Get out of here you poor scoundrel before I stab you!", ConsoleColor.Red);
+                Console.ReadKey();
             }
-        }
-
-        public static void LlamaTime(Character player, int shopMoney)
-        {
-
         }
 
         /// <summary>
@@ -206,8 +248,6 @@ namespace Assignment_Arena_Fighter
 
         public static void DisplayMessage(string message, ConsoleColor color = ConsoleColor.White)
         {
-            // This simple method works a bit like a Console.WriteLine and also saves unnecessary lines of code
-            // for Console.ForeGroundColor, Console.ResetColor etc.
             Console.ForegroundColor = color;
             Console.WriteLine(message);
             Console.ResetColor();

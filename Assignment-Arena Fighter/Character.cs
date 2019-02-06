@@ -9,20 +9,20 @@ namespace Assignment_Arena_Fighter
 
         public Character() { }
 
-        public string PlayerName { get; set; }
-        public int playerStrength;
-        public int playerDamage;
-        public int playerHealth;
+        public string Name { get; set; }
+        public int Strength;
+        public int Damage;
+        public int Health;
         public List<int> ShopMoney { get; set; }
         public List<string> Battles { get; set; }
         public List<int> Score { get; set; }
 
-        public Character(string playerName, int playerStrength, int playerDamage, int playerHealth)
+        public Character(string Name, int Strength, int Damage, int Health)
         {
-            this.PlayerName = playerName;
-            this.playerStrength = playerStrength;
-            this.playerDamage = playerDamage;
-            this.playerHealth = playerHealth;
+            this.Name = Name;
+            this.Strength = Strength;
+            this.Damage = Damage;
+            this.Health = Health;
             Battles = new List<string>();
             Score = new List<int>();
             ShopMoney = new List<int>();
@@ -30,12 +30,13 @@ namespace Assignment_Arena_Fighter
 
         public void DisplayPlayer()
         {
+
             Program.DisplayMessage(
                 "\nPlayer: \n" +
-                "Name: " + PlayerName + "\n" +
-                "Strength: " + playerStrength + "\n" +
-                "Damage: " + playerDamage + "\n" +
-                "Health: " + playerHealth + "\n");
+                "Name: " + Name + "\n" +
+                "Strength: " + Strength + "\n" +
+                "Damage: " + Damage + "\n" +
+                "Health: " + ((Health <= 0) ? "Dead" : Health.ToString()) + "\n");
         }
     }
 }

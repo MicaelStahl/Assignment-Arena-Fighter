@@ -15,63 +15,76 @@ namespace Assignment_Arena_Fighter
         int points = 0;
         int shopMoney = 0;
 
-        public string AiName { get; set; }
-        public int AiStrength { get; set; }
-        public int AiDamage { get; set; }
-        public int AiHealth { get; set; }
+        //public Character Player { get; set; }
+        //public Battle Ai { get; set; }
 
-        public Battle(string AiName, int AiStrength, int AiDamage, int AiHealth)
+        public string Name { get; set; }
+        public int Strength { get; set; }
+        public int Damage { get; set; }
+        public int Health { get; set; }
+
+        public Battle(string Name, int Strength, int Damage, int Health)
         {
-            this.AiName = AiName;
-            this.AiStrength = AiStrength;
-            this.AiDamage = AiDamage;
-            this.AiHealth = AiHealth;
+            this.Name = Name;
+            this.Strength = Strength;
+            this.Damage = Damage;
+            this.Health = Health;
 
         }
 
         public void IsXAlive(Character player, Battle Ai)
         {
+            //bool stayAlive = true;
 
+            //while (stayAlive)
+            //{
+                //player.DisplayPlayer();
+                //Ai.DisplayAi();
 
-            if (player.playerHealth <= 0)
-            {
-                points = points + 2;
-                player.Score.Add(points);
+                if (player.Health <= 0)
+                {
+                    points = points + 2;
+                    player.Score.Add(points);
 
-                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a tuna and lost");
-                player.Battles.Add(Lost);
+                    string Lost = (player.Name + " Slapped " + Ai.Name + " with a tuna and lost");
+                    player.Battles.Add(Lost);
 
-                Console.ReadKey();
-                Round.FinalStatistics(player, Ai);
+                    //Console.ReadKey();
+                    Round.FinalStatistics(player, Ai);
+                }
+                //else if (player.Health > 0 && Ai.Health > 0)
+                //{
+                //    Round round = new Round(player, Ai);
+                //}
+                else if (Ai.Health <= 0)
+                {
+                    shopMoney = shopMoney + InfoGen.Next(2, 5);
+                    player.ShopMoney.Add(shopMoney);
+
+                    points = points + 5;
+                    player.Score.Add(points);
+
+                    string Lost = (player.Name + " Slapped " + Ai.Name + " with a trout and won");
+                    player.Battles.Add(Lost);
+
+                    //Console.ReadKey();
+                    Program.Testing(player);
+                }
+                else
+                {
+                    Round.BattleSequence(player, Ai);
+                }
             }
-            else if (Ai.AiHealth <= 0)
-            {
-                shopMoney = shopMoney + InfoGen.Next(2, 5);
-                player.ShopMoney.Add(shopMoney);
-
-                points = points + 5;
-                player.Score.Add(points);
-
-                string Lost = (player.PlayerName + " Slapped " + Ai.AiName + " with a trout and won");
-                player.Battles.Add(Lost);
-
-                Console.ReadKey();
-                Program.Testing(player);
-            }
-            else
-            {
-                Round.BattleSequence(player, Ai);
-            }
-        }
+        //}
 
         public void DisplayAi()
         {
             Program.DisplayMessage(
                 "Opponent: \n" +
-                "Name: " + AiName + "\n" +
-                "Strength: " + AiStrength + "\n" +
-                "Damage: " + AiDamage + "\n" +
-                "Health: " + AiHealth + "\n");
+                "Name: " + Name + "\n" +
+                "Strength: " + Strength + "\n" +
+                "Damage: " + Damage + "\n" +
+                "Health: " + Health + "\n");
         }
     }
 }
