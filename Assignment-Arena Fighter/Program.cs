@@ -91,11 +91,11 @@ namespace Assignment_Arena_Fighter
         /// </summary>
         static string AskUserForThings(string x)
         {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("\n\n\n\t\t\t\tPlease write your " + x + ": ");
-                    string playerName = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\n\n\n\t\t\t\tPlease write your " + x + ": ");
+            string playerName = Console.ReadLine();
 
-                    return playerName;
+            return playerName;
         }
         /// <summary>
         /// Just a humble shop that gives the player the opportunity to upgrade his/her stats
@@ -146,15 +146,18 @@ namespace Assignment_Arena_Fighter
                         AddDamage(player, Ai, shopMoney);
 
                         if (shopMoney >= 2)
+                        {
                             shopMoney = shopMoney - 2;
+                        }
                         break;
                     case 'H':
                         Console.Clear();
                         AddHealth(player, Ai, shopMoney);
 
                         if (shopMoney >= 5)
+                        {
                             shopMoney = shopMoney - 5;
-
+                        }
                         break;
 
                     case 'B':

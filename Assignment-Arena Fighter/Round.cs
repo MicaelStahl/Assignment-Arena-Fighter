@@ -87,8 +87,8 @@ namespace Assignment_Arena_Fighter
                 Program.DisplayMessage("Opponent punched me for " + Ai.Damage + "!", ConsoleColor.Red);
 
                 player.Health -= Ai.Damage; // can be read as playerhealth = playerhealth - AiDamage
-
-                                Program.DisplayMessage("Remaining Health: " + player.Name + " (" + ((player.Health <= 0) ? "Dead" : player.Health.ToString()) + "), " + Ai.Name + " (" + ((Ai.Health <= 0) ? "Dead" : Ai.Health.ToString()) + ")");
+                
+                Program.DisplayMessage("Remaining Health: " + player.Name + " (" + ((player.Health <= 0) ? "Dead" : player.Health.ToString()) + "), " + Ai.Name + " (" + ((Ai.Health <= 0) ? "Dead" : Ai.Health.ToString()) + ")");
 
             }
             else
